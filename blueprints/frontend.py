@@ -6,6 +6,8 @@ import bcrypt
 import hashlib
 import os
 import time
+import datetime
+import timeago
 
 from cmyui.logging import Ansi
 from cmyui.logging import log
@@ -139,7 +141,7 @@ async def settings_avatar():
 async def settings_avatar_post():
     # constants
     MAX_IMAGE_SIZE = glob.config.max_image_size * 1024 * 1024
-    AVATARS_PATH = f'{glob.config.path_to_gulag}.data/avatars'
+    AVATARS_PATH = f'{glob.config.path_to_gulag}avatars'
     ALLOWED_EXTENSIONS = ['.jpeg', '.jpg', '.png']
 
     avatar = (await request.files).get('avatar')
@@ -558,6 +560,54 @@ async def register_post():
 
     # user has successfully registered
     return await render_template('verify.html')
+
+@frontend.route('/scores/<id>')
+async def score_select(id):
+    mods_mode_strs = {
+        1: ('Vanilla Taiko', 'taiko', 'vn'),
+        2: ('Vanilla CTB', 'catch', 'vn'),
+        3: ('Vanilla Mania', 'mania', 'vn'),
+        4: ('Relax Standard', 'std', 'rx'),
+        5: ('Relax Taiko', 'taiko', 'rx'),
+        6: ('Relax Catch', 'catch', 'rx'),
+        8: ('AutoPilot Standard', 'std', 'ap') }
+
+    score_data = await glob.db.fetch('SELECT pp, time_elapsed, play_time, score, grade, id, nmiss, n300, n100, n50, acc, userid, mods, max_combo, mode, map_md5 FROM scores WHERE id = %s', [id])
+    if not score_data:
+        return await flash('error', "Score not found!", "home")
+
+    map_data = await glob.db.fetch('SELECT id, total_length, set_id, diff, title, creator, version, artist, status, max_combo FROM maps WHERE md5 = %s', [score_data['map_md5']])
+    if not map_data:
+        return await flash('error', 'Could not find the beatmap.', 'home')
+
+    user_data = await glob.db.fetch('SELECT name, country FROM users WHERE id = %s', [score_data['userid']])
+    if not user_data:
+        return await flash("error", "Could not find the user.", "home")
+
+    #score converts
+    score_data['acc'] = round(float(score_data['acc']), 2)
+    score_data['pp'] = round(float(score_data['pp']), 2)
+    score_data['score'] = "{:,}".format(int(score_data['score']))
+    score_data['grade'] = utils.get_color_formatted_grade(score_data['grade'])
+    score_data['ptformatted'] = datetime.datetime.strptime(str(score_data['play_time']), "%Y-%m-%d %H:%M:%S").strftime("%d %B %Y %H:%M:%S")
+    if score_data['mods'] != 0:
+        score_data['mods'] = utils.get_mods(score_data['mods'])
+    score_data['mode_icon'] = utils.get_mode_icon(score_data['mode'])
+    mods_mode_str, mode, mods = mods_mode_strs.get(score_data['mode'], ("Vanilla Standard", "std", "vn"))
+
+    if score_data['grade']['letter'] == 'F':
+        if map_data['total_length'] != 0:
+            score_data['mapprogress'] = f"{(score_data['time_elapsed'] / (map_data['total_length'] * 1000)) * 100:.2f}%"
+        else:
+            score_data['mapprogress'] = 'undefined'
+
+    #map converts
+    map_data['colordiff'] = utils.get_difficulty_colour_spectrum(map_data['diff'])
+    map_data['diff'] = round(map_data['diff'], 2)
+
+    user_data['customization'] = utils.has_profile_customizations(score_data['userid'])
+    return await render_template('score.html', score=score_data, mods_mode_str=mods_mode_str, map=map_data, mode=mode, mods=mods, userinfo=user_data, datetime=datetime, timeago=timeago, pp=int(score_data['pp'] + 0.5))
+
 
 @frontend.route('/logout')
 async def logout():

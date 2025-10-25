@@ -10,7 +10,8 @@
     </div>
     <div v-if="data.scores.{{ id }}.out.length != 0" class="scores">
         <div v-for="(map, index) in data.scores.{{ id }}.out" class="map-single"
-            :style="`background: linear-gradient(hsl(var(--main), 25%, 25%, 90%), hsl(var(--main), 25%, 25%, 90%)), url(https://assets.ppy.sh/beatmaps/${map.beatmap.set_id}/covers/cover.jpg)`">
+            :style="`background: linear-gradient(hsl(var(--main), 25%, 25%, 90%), hsl(var(--main), 25%, 25%, 90%)), url(https://assets.ppy.sh/beatmaps/${map.beatmap.set_id}/covers/cover.jpg)`"
+            @click="navigateToScore(map)" style="cursor: pointer;">
             <div class="map-data">
                 <div class="map-content1">
                     <div class="map-image">
@@ -19,12 +20,17 @@
                     </div>
                     <div class="map-title-block">
                         <div class="map-title">
-                            <a class="beatmap-link">
-                                <% map.beatmap.artist %> - <% map.beatmap.title %> [<% map.beatmap.version %>] <!--<span v-if="map.mods != 0">+ <% modsStr(map.mods) %></span>-->
+                            <a class="beatmap-link" :href="'https://osu.ppy.sh/beatmapsets/' + map.beatmap.set_id" target="_blank" rel="noopener" @click.stop>
+                                <% map.beatmap.artist %> - <% map.beatmap.title %> [<% map.beatmap.version %>]
                             </a>
                         </div>
+                        <div class="map-info">
+                            <time>
+                                By <% map.beatmap.artist %> | Mapped by <a :href="'https://osu.ppy.sh/u/' + map.beatmap.creator" target="_blank" rel="noopener" @click.stop><% map.beatmap.creator %></a>
+                            </time>
+                        </div>
                         <div class="play-stats">
-                            <% addCommas(map.score) %> / <% map.max_combo %><b>x</b>
+                            <% addCommas(map.score) %> / <% map.max_combo %><b>x</b> / <span v-if="map.mods != 0">+ <% modsStr(map.mods) %></span>
                         </div>
                         <div class="map-date">
                             <time>
@@ -39,6 +45,24 @@
                             <div class="score-details_pp-block">
                                 <div class="map-pp">
                                     <% map.pp.toFixed() %><span class="map-pp-unit">pp</span>
+                                    <div class="pp-tooltip" style="display: none;">
+                                        <div class="hitcount-row">
+                                            <span class="hitcount-label hit-300">300:</span>
+                                            <span class="hitcount-value"><% map.n300 || 0 %>x</span>
+                                        </div>
+                                        <div class="hitcount-row">
+                                            <span class="hitcount-label hit-100">100:</span>
+                                            <span class="hitcount-value"><% map.n100 || 0 %>x</span>
+                                        </div>
+                                        <div class="hitcount-row">
+                                            <span class="hitcount-label hit-50">50:</span>
+                                            <span class="hitcount-value"><% map.n50 || 0 %>x</span>
+                                        </div>
+                                        <div class="hitcount-row">
+                                            <span class="hitcount-label hit-miss">Miss:</span>
+                                            <span class="hitcount-value"><% map.nmiss || 0 %>x</span>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="map-acc">accuracy:&nbsp;<b>
                                         <% map.acc.toFixed(2) %>%
@@ -248,7 +272,7 @@
                             <tr>
                                 <td><b>PP</b></td>
                                 <td class="right-aligned">
-                                    <% addCommas(data.stats.out[modegulag].pp) %>
+                                    <% addCommas(data.stats.out[modegulag].pp) %>pp
                                 </td>
                             </tr>
                             <tr>
@@ -266,7 +290,7 @@
                             <tr>
                                 <td><b>Max combo</b></td>
                                 <td class="right-aligned">
-                                    <% addCommas(data.stats.out[modegulag].max_combo) %>
+                                    <% addCommas(data.stats.out[modegulag].max_combo) %>x
                                 </td>
                             </tr>
                             <tr>
@@ -371,4 +395,137 @@
     {% endif %}
 </style>
 {% endif %}
+
+<style>
+.map-pp {
+    position: relative;
+    cursor: help;
+}
+
+.pp-tooltip {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    white-space: nowrap;
+    z-index: 9999;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    pointer-events: none;
+    margin-bottom: 5px;
+}
+
+.pp-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: rgba(0, 0, 0, 0.9);
+}
+
+.map-pp:hover .pp-tooltip {
+    display: block !important;
+}
+
+.hitcount-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 2px 0;
+    min-width: 80px;
+}
+
+.hitcount-label {
+    font-weight: bold;
+    margin-right: 8px;
+}
+
+.hitcount-value {
+    font-weight: normal;
+}
+
+.hit-300 {
+    color: #66ccff;
+}
+
+.hit-100 {
+    color: #88dd55;
+}
+
+.hit-50 {
+    color: #ffaa00;
+}
+
+.hit-miss {
+    color: #ff6666;
+}
+
+/* Ensure the score card doesn't clip the tooltip */
+.map-single {
+    overflow: visible !important;
+}
+
+.map-data {
+    overflow: visible !important;
+}
+
+.score-details {
+    overflow: visible !important;
+}
+</style>
+<script>
+    function modsStr(mods) {
+        const modNames = [];
+        const modMap = {
+            1: 'NF',      // NoFail
+            2: 'EZ',      // Easy
+            4: 'TD',      // TouchDevice (hidden from users usually)
+            8: 'HD',      // Hidden
+            16: 'HR',     // HardRock
+            32: 'SD',     // SuddenDeath
+            64: 'DT',     // DoubleTime
+            128: 'RX',    // Relax
+            256: 'HT',    // HalfTime
+            512: 'NC',    // Nightcore (includes DT)
+            1024: 'FL',   // Flashlight
+            2048: 'AT',   // Autoplay
+            4096: 'SO',   // SpunOut
+            8192: 'AP',   // Autopilot
+            16384: 'PF',  // Perfect (includes SD)
+            32768: '4K',  // Key4
+            65536: '5K',  // Key5
+            131072: '6K', // Key6
+            262144: '7K', // Key7
+            524288: '8K', // Key8
+            1048576: 'FI', // FadeIn
+            2097152: 'RD', // Random
+            4194304: 'CN', // Cinema
+            8388608: 'TP', // Target Practice
+            16777216: '9K' // Key9
+        };
+
+        for (const [value, name] of Object.entries(modMap)) {
+            if (mods & parseInt(value)) {
+                modNames.push(name);
+            }
+        }
+
+        return modNames.join('');
+    }
+
+    // Add this method to your Vue app methods
+    // You'll need to add this to your profile.js file or in the Vue app initialization
+    function navigateToScore(map) {
+        // Adjust this URL pattern to match your score page routing
+        const scoreUrl = `/scores/${map.id}` || `/score/${map.beatmap.id}/${map.user_id}` || `/scores?id=${map.id}`;
+        window.location.href = scoreUrl;
+    }
+</script>
 {% endblock bottom %}

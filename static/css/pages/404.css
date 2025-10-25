@@ -1,39 +1,103 @@
-.main-block {
-    height: auto;
-    width: auto;
-    max-width: 1152px;
+/* 🐾 COZY 404 PAGE STYLING 🐾 */
 
-    background-color: hsl(var(--main),10%,15%);
-    color: #fff;
+.main-block {
+  height: auto;
+  width: auto;
+  max-width: 1152px;
+  background-color: var(--cozy-bg-dark, hsl(340, 18%, 18%)) !important;
+  color: #fff;
+  border-radius: 24px !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  border: 2px solid rgba(255, 179, 217, 0.15);
+  overflow: hidden;
 }
 
 .title-block {
-    height: auto;
-    width: auto;
-    padding: 38px 22px 10px 22px;
-    background-color: hsl(var(--main), 30%, 50%);
-    border-top-left-radius: 16px;
-    border-top-right-radius: 16px;
+  height: auto;
+  width: auto;
+  padding: 38px 22px 10px 22px;
+  background: linear-gradient(135deg,
+    hsl(340, 65%, 65%) 0%,
+    hsl(320, 55%, 70%) 100%) !important;
+  border-radius: 24px 24px 0 0 !important;
+  position: relative;
+}
+
+/* Cute pattern overlay */
+.title-block::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 2px, transparent 2px),
+    radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.1) 2px, transparent 2px);
+  background-size: 40px 40px;
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.title-block > * {
+  position: relative;
+  z-index: 2;
 }
 
 .error-title {
-    font-size: 1.7em;
-    font-weight: 500;
+  font-size: 1.7em;
+  font-weight: 500;
+  color: #fff;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .error-block {
-    padding: 22px;
+  padding: 22px;
+  background: var(--cozy-bg-dark, hsl(340, 18%, 18%));
 }
 
 .error-subtitle {
-    font-size: 1.5em;
-    font-weight: 500;
+  font-size: 1.5em;
+  font-weight: 500;
+  color: hsl(340, 65%, 75%);
+  margin-bottom: 16px;
 }
 
 ol {
-    padding: 0px 0px 10px 20px;
+  padding: 0px 0px 10px 20px;
 }
 
 li {
-    list-style-type: none;
+  list-style-type: none;
+  padding: 8px 0;
+  color: rgba(255, 249, 245, 0.9);
+  position: relative;
+  padding-left: 24px;
 }
+
+li:before {
+  content: "🐾";
+  position: absolute;
+  left: 0;
+  font-size: 1.2em;
+}
+
+/* Add some cute styling for links */
+.error-block a {
+  color: hsl(340, 65%, 70%) !important;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.error-block a:hover {
+  color: hsl(340, 75%, 80%) !important;
+  text-shadow: 0 0 12px rgba(255, 179, 217, 0.4);
+}
+
+/* Make the 404 even cuter with a sad face emoji effect */
+.error-title:after {
+  content: " 🐾";
+  opacity: 0.7;
+}
+
+/* 🐾 End of cozy 404 styling 🐾 */

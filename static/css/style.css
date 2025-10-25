@@ -1,3 +1,292 @@
+/* ===============================================
+   🐾 COZY PUPPYGIRL THEME VARIABLES 🐾
+   Add this at the TOP of your style.css!
+   =============================================== */
+
+/* Import cute font for the whole site! (NOT for icons!) */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800&display=swap');
+
+/* Alternative cute fonts you can try instead of Nunito:
+   - Quicksand (very rounded and cute): 
+     @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+   - Comfortaa (bubbly and soft):
+     @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap');
+   - Poppins (clean and modern):
+     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+   - Outfit (geometric and friendly):
+     @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
+*/
+
+:root {
+  /* Main theme color - soft rose/pink (puppygirl pink!) */
+  --main: 340;
+  
+  /* Cozy color palette */
+  --cozy-bg-darkest: hsl(340, 15%, 12%);
+  --cozy-bg-dark: hsl(340, 18%, 18%);
+  --cozy-bg-medium: hsl(340, 20%, 25%);
+  --cozy-bg-light: hsl(340, 22%, 32%);
+  
+  --cozy-accent-primary: hsl(340, 65%, 65%);
+  --cozy-accent-secondary: hsl(320, 55%, 70%);
+  --cozy-accent-warm: hsl(30, 70%, 75%);
+  
+  /* Text colors */
+  --text-primary: #fff9f5;
+  --text-secondary: rgba(255, 249, 245, 0.8);
+  --text-muted: rgba(255, 249, 245, 0.6);
+  
+  /* Shadow and glow */
+  --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.15);
+  --shadow-medium: 0 8px 24px rgba(0, 0, 0, 0.2);
+  --shadow-large: 0 12px 32px rgba(0, 0, 0, 0.25);
+  --glow-pink: 0 0 20px rgba(255, 179, 217, 0.3);
+}
+
+/* Global smooth transitions */
+* {
+  transition: background-color 0.3s ease, 
+              transform 0.2s ease, 
+              box-shadow 0.3s ease;
+}
+
+/* Apply cute font to everything EXCEPT icons! */
+body, h1, h2, h3, h4, h5, h6, p, span, a, button, input, textarea, select, div {
+  font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+}
+
+/* Keep the mode icons using their special font */
+.mode-icon {
+  font-family: osu-mode !important;
+}
+
+/* Cozy body background */
+body {
+  background: linear-gradient(135deg, 
+    hsl(340, 15%, 12%) 0%, 
+    hsl(340, 18%, 15%) 50%,
+    hsl(340, 15%, 12%) 100%) !important;
+  background-attachment: fixed;
+  color: var(--text-primary);
+}
+
+/* Cute scrollbar */
+body::-webkit-scrollbar {
+  width: 14px;
+  background: var(--cozy-bg-dark);
+  border-radius: 8px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, 
+    var(--cozy-accent-primary) 0%, 
+    var(--cozy-accent-secondary) 100%);
+  border-radius: 20px;
+  border: 3px solid var(--cozy-bg-dark);
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, 
+    hsl(340, 70%, 70%) 0%, 
+    hsl(320, 60%, 75%) 100%);
+  box-shadow: var(--glow-pink);
+}
+
+/* Main containers get rounded and bordered */
+.main-block {
+  background: var(--cozy-bg-dark) !important;
+  border-radius: 24px !important;
+  box-shadow: var(--shadow-medium);
+  border: 2px solid rgba(255, 179, 217, 0.1);
+}
+
+.main-block:hover {
+  border-color: rgba(255, 179, 217, 0.2);
+  box-shadow: var(--shadow-large), var(--glow-pink);
+}
+
+/* Cards get cozy styling */
+.card {
+  background: var(--cozy-bg-medium) !important;
+  border-radius: 20px !important;
+  border: 2px solid rgba(255, 179, 217, 0.15);
+  box-shadow: var(--shadow-soft);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-medium), var(--glow-pink);
+  border-color: rgba(255, 179, 217, 0.3);
+}
+
+/* Buttons get rounded and gradient */
+.button, button {
+  border-radius: 16px !important;
+  font-weight: 500;
+  box-shadow: var(--shadow-soft);
+}
+
+.button.is-primary, button.is-primary {
+  background: linear-gradient(135deg, 
+    var(--cozy-accent-primary) 0%, 
+    var(--cozy-accent-secondary) 100%) !important;
+  color: white !important;
+}
+
+.button.is-primary:hover, button.is-primary:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: var(--shadow-medium), var(--glow-pink);
+}
+
+/* Inputs get soft styling */
+.input, .textarea, .select select {
+  background: var(--cozy-bg-medium) !important;
+  border: 2px solid rgba(255, 179, 217, 0.2) !important;
+  border-radius: 14px !important;
+  color: var(--text-primary) !important;
+}
+
+.input:focus, .textarea:focus, .select select:focus {
+  border-color: var(--cozy-accent-primary) !important;
+  box-shadow: 0 0 0 3px rgba(255, 179, 217, 0.2), var(--glow-pink);
+  background: var(--cozy-bg-light) !important;
+}
+
+/* Navbar - Dark and cozy! */
+.navbar {
+  background: linear-gradient(90deg,
+    hsl(340, 18%, 16%) 0%,
+    hsl(320, 18%, 18%) 100%) !important;
+  backdrop-filter: blur(12px) saturate(180%);
+  border-bottom: 2px solid rgba(255, 179, 217, 0.15);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+}
+
+.navbar-item {
+  border-radius: 12px;
+  color: var(--text-secondary) !important;
+}
+
+.navbar-item:hover {
+  background: rgba(255, 179, 217, 0.2) !important;
+  color: #fff9f5 !important;
+  transform: translateY(-2px);
+}
+
+/* Dark dropdown menu when hovering over username */
+.navbar-dropdown {
+  background: hsl(340, 20%, 18%) !important;
+  border: 2px solid rgba(255, 179, 217, 0.2) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
+  padding: 8px !important;
+}
+
+.navbar-dropdown .navbar-item {
+  color: var(--text-secondary) !important;
+  border-radius: 8px !important;
+  padding: 10px 16px !important;
+}
+
+.navbar-dropdown .navbar-item:hover {
+  background: hsl(340, 25%, 25%) !important;
+  color: #fff9f5 !important;
+}
+
+.minimized {
+  background: linear-gradient(90deg,
+    hsl(340, 18%, 16%) 0%,
+    hsl(320, 18%, 18%) 100%) !important;
+  backdrop-filter: blur(16px) saturate(200%);
+}
+
+/* Rank grades get soft glows */
+.rank-SH, .rank-XH {
+  color: #e0f7ff !important;
+  filter: drop-shadow(0 0 8px rgba(224, 247, 255, 0.4));
+}
+
+.rank-S, .rank-X {
+  color: #ffd700 !important;
+  filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.4));
+}
+
+.rank-A {
+  color: #90ee90 !important;
+  filter: drop-shadow(0 0 8px rgba(144, 238, 144, 0.4));
+}
+
+.rank-B {
+  color: #87ceeb !important;
+  filter: drop-shadow(0 0 8px rgba(135, 206, 235, 0.4));
+}
+
+.rank-C {
+  color: #dda0dd !important;
+  filter: drop-shadow(0 0 8px rgba(221, 160, 221, 0.4));
+}
+
+.rank-D {
+  color: #ff9999 !important;
+  filter: drop-shadow(0 0 8px rgba(255, 153, 153, 0.4));
+}
+
+.rank-F {
+  color: #ff6b6b !important;
+  filter: drop-shadow(0 0 8px rgba(255, 107, 107, 0.4));
+}
+
+/* Special background classes */
+.bg-accent {
+  background: linear-gradient(135deg,
+    var(--cozy-accent-primary) 0%,
+    var(--cozy-accent-secondary) 100%) !important;
+}
+
+.bg-seccond {
+  background: var(--cozy-bg-dark) !important;
+}
+
+.is-weeb {
+  background: linear-gradient(135deg,
+    var(--cozy-accent-primary) 0%,
+    var(--cozy-accent-secondary) 100%) !important;
+  border-top-right-radius: 20px !important;
+  border-top-left-radius: 20px !important;
+}
+
+/* Modal styling */
+.modal-content, .modaldata {
+  background: var(--cozy-bg-dark) !important;
+  border-radius: 24px !important;
+  border: 3px solid rgba(255, 179, 217, 0.3);
+  box-shadow: var(--shadow-large), var(--glow-pink);
+}
+
+.modal-background {
+  backdrop-filter: blur(8px);
+  background: rgba(0, 0, 0, 0.6) !important;
+}
+
+/* Notification banner */
+.paper-snackbar {
+  border-radius: 16px !important;
+  box-shadow: var(--shadow-medium);
+}
+
+.paper-snackbar.is-success {
+  background: linear-gradient(135deg, #66bb6a 0%, #4caf50 100%) !important;
+}
+
+.paper-snackbar.is-error {
+  background: linear-gradient(135deg, #ef5350 0%, #e53935 100%) !important;
+}
+
+/* 🐾 END OF COZY THEME ADDITIONS 🐾 */
+/* Your original style.css continues below... */
+
+/* ============================================== */
+
 /* Font import (mode icons) */
 
 @font-face {

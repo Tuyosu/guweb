@@ -1,5 +1,25 @@
-/* gulag mascot/avatar */
+/* 🐾 COZY HOME PAGE STYLING 🐾 */
 
+/* Import cute fonts! (NOT for icons, just text!) */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800&display=swap');
+/* Alternative cute fonts you can try:
+   - Quicksand: https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap
+   - Comfortaa: https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap
+   - Poppins: https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap
+   - Outfit: https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap
+*/
+
+/* Apply the font to everything EXCEPT icons */
+body, h1, h2, h3, h4, h5, h6, p, a, button, input, textarea, select {
+  font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+}
+
+/* Make sure mode icons keep their special font */
+.mode-icon {
+  font-family: osu-mode !important;
+}
+
+/* gulag mascot/avatar */
 .gulag-avatar {
   background-image: url("/static/images/pippi.png");
   background-repeat: no-repeat;
@@ -12,6 +32,7 @@
   margin: 0;
   padding: 0;
   position: relative;
+  filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.3));
 }
 
 .main-block {
@@ -61,10 +82,61 @@
   }
 }
 
+/* COZY DARK SPLASH BACKGROUND! */
 .splash {
-  background: hsl(var(--main), 40%, 40%);
+  background: linear-gradient(135deg,
+    hsl(340, 25%, 20%) 0%,
+    hsl(330, 28%, 22%) 35%,
+    hsl(320, 25%, 24%) 70%,
+    hsl(340, 25%, 20%) 100%) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Optional: Add a subtle pattern overlay for extra coziness */
+.splash::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 25% 25%, rgba(255, 179, 217, 0.05) 2px, transparent 2px),
+    radial-gradient(circle at 75% 75%, rgba(230, 179, 255, 0.05) 2px, transparent 2px);
+  background-size: 60px 60px;
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+/* Make the text on splash page more readable and cozy */
+.splash h1, .splash .title {
+  color: #fff9f5 !important;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+  font-weight: 700;
+}
+
+.splash p, .splash .subtitle {
+  color: rgba(255, 249, 245, 0.9) !important;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Make links in splash page more visible */
+.splash a {
+  color: hsl(340, 75%, 75%) !important;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.splash a:hover {
+  color: hsl(340, 80%, 85%) !important;
+  text-shadow: 0 0 12px rgba(255, 179, 217, 0.5);
 }
 
 .footer {
   margin: 0;
+  background: hsl(340, 18%, 14%);
+  border-top: 2px solid rgba(255, 179, 217, 0.15);
 }
+
+/* 🐾 End of cozy home styling 🐾 */
