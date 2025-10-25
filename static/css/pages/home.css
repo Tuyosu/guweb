@@ -21,7 +21,7 @@ body, h1, h2, h3, h4, h5, h6, p, a, button, input, textarea, select {
 
 /* gulag mascot/avatar */
 .gulag-avatar {
-  background-image: url("/static/images/pippi.png");
+  background-image: url("/static/images/main-360x360.png");
   background-repeat: no-repeat;
   /*     available avatar widths & heights      */
   /* gulag.png:   width: 512px; height: 363px;  */
