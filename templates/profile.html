@@ -30,7 +30,7 @@
                             </time>
                         </div>
                         <div class="play-stats">
-                            <% addCommas(map.score) %> / <% map.max_combo %><b>x</b> / <span v-if="map.mods != 0">+ <% modsStr(map.mods) %></span>
+                            <% addCommas(map.score) %> - <% map.max_combo %>x/<% map.beatmap.max_combo %>x - <span v-if="map.mods != 0">+ <% modsStr(map.mods) %></span>
                         </div>
                         <div class="map-date">
                             <time>
@@ -368,6 +368,7 @@
             <div class="column">
                 {{ scores('Best Scores', 'best')}}
                 {{ scores('Recent Scores', 'recent')}}
+                {{ scores('First Place Scores', 'first')}}
                 {{ maps('Most Beatmaps Played', 'most')}}
             </div>
         </div>
