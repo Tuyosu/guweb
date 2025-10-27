@@ -205,10 +205,7 @@
                             <td class="column-player-rank">#<% index + 1 %>
                             </td>
                             <td class="column-player-score-rank">
-                                <div class="rank-single">
-                                    <a class="player-grade"
-                                        :style="'background-image: url(/static/images/ranks/' + user.grade + '_rank.png)'"></a>
-                                </div>
+                                <% user.grade %>
                             </td>
                             <td>
                                 <% addCommas(user.pp.toFixed()) %>pp

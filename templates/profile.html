@@ -107,7 +107,7 @@
     </div>
     <div v-if="data.maps.{{ id }}.out.length != 0">
         <div class="beatmaps">
-            <a v-for="(map, index) in data.maps.{{ id }}.out" class="beatmap-block" :href="'https://osu.ppy.sh/beatmapsets/' + map.set_id" target="_blank" rel="noopener">
+            <a v-for="(map, index) in data.maps.{{ id }}.out" class="beatmap-block">
                 <div class="beatmap-preview">
                     <img v-bind:src="'https://assets.ppy.sh/beatmaps/' + map.set_id + '/covers/card.jpg'" class="map-image-picture">
                 </div>
