@@ -20,7 +20,7 @@
                     </div>
                     <div class="map-title-block">
                         <div class="map-title">
-                            <a class="beatmap-link" :href="'https://osu.ppy.sh/beatmapsets/' + map.beatmap.set_id" target="_blank" rel="noopener" @click.stop>
+                            <a class="beatmap-link" :href="'/b/' + map.beatmap.id">
                                 <% map.beatmap.artist %> - <% map.beatmap.title %> [<% map.beatmap.version %>]
                             </a>
                         </div>
@@ -228,7 +228,9 @@
             </div>
             <div class="bar-selection badge-selects">
                 <span>
-                    Badges not yet implemented!
+                    {% for el in group_list %}
+                        <span class="is-badge" style="color: {{ el[2] }}"><i class="fas fa-{{ el[0] }}" style="margin-right:3px;"></i> {{ el[1] }}</span>
+                    {% endfor %}
                 </span>
             </div>
         </div>
@@ -236,33 +238,6 @@
     <div class="second-block">
         <div class="columns is-marginless two-sides">
             <div class="column is-one-third" v-cloak>
-                <!--<div class="header" v-if='data.stats[`rank_global_${modegulag}`] != -1'>
-                    <div class="title">
-                        <i class="fas fa-user-friends"></i> Rank
-                    </div>
-                </div>
-                <div class="stats-block rank-block" v-if='data.stats[`rank_global_${modegulag}`] != -1'>
-                    <table class="is-striped">
-                        <tbody>
-                            <tr>
-                                <td>Global rank</td>
-                                <td class="right-aligned">
-                                    <span id="global-rank">
-                                        <% '#' + data.stats[`rank_global_${modegulag}`] %>
-                                    </span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Country rank</td>
-                                <td class="right-aligned">
-                                    <span id="country-rank">
-                                        <% '#' + data.stats[`rank_country_${modegulag}`] %>
-                                    </span>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>-->
                 <div class="header">
                     <div class="title">
                         <i class="fas fa-chart-pie"></i> Statistics
@@ -356,16 +331,6 @@
                         </article>
                     </div>
                 </div>
-                <!--<div class="level-block">
-                    <div class="columns is-marginless is-2">
-                        <div class="column level-bar is-paddingless">
-                            <div class="progress-level"></div>
-                        </div>
-                        <div class="column level-num is-one-fifth is-textcen">
-                            <% data.stats[`level_${modegulag}`] %>
-                        </div>
-                    </div>
-                </div>-->
             </div>
             <div class="column">
                 {{ scores('Best Scores', 'best')}}
@@ -513,6 +478,20 @@
             8388608: 'TP', // Target Practice
             16777216: '9K' // Key9
         };
+
+        const hasNC = mods & 512;
+        const hasDT = mods & 64;
+
+        if (hasNC) {
+            mods &= ~64;
+        }
+
+        const hasPF = mods & 16384;
+        const hasSD = mods & 32;
+
+        if (hasPF) {
+            mods &= ~32;
+        }
 
         for (const [value, name] of Object.entries(modMap)) {
             if (mods & parseInt(value)) {

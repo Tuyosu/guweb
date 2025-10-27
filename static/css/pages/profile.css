@@ -96,6 +96,7 @@
 
 .profile-stats-rank {
   width: 20px;
+  border-radius: 72px;
 }
 
 .info-block {
@@ -169,6 +170,7 @@
   background: var(--cozy-bg-dark, hsl(340, 18%, 18%)) !important;
   border-radius: 0 !important;
   margin: 0 !important;
+  display: inline-table;
 }
 
 .select-left {
@@ -237,7 +239,7 @@ td {
   justify-content: center;
   align-items: center;
   padding: 6px 10px;
-  border-radius: 16px !important;
+  border-radius: 84px !important;
   background: linear-gradient(135deg,
     rgba(255, 179, 217, 0.3) 0%,
     rgba(230, 179, 255, 0.3) 100%);
@@ -551,6 +553,7 @@ html {
   position: relative;
   border-radius: 0 16px 16px 0;
   z-index: 0;
+  padding: 8px;
   margin-left: 6px;
 }
 
@@ -905,4 +908,49 @@ span.beatmap-mapper {
   margin-bottom: 12px;
 }
 
+.is-badge {
+  display: inline-block;
+  background: hsl(var(--main),12%,15%);
+  color: white;
+  border-radius: 25px;
+  justify-content: center;
+  padding-bottom: calc(.5em - 1px);
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: calc(.5em - 1px);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.is-badge {
+      display: inline-block;
+      background: hsl(var(--main),12%,15%);
+      color: white;
+      border-radius: 15px;
+      justify-content: center;
+      padding-bottom: calc(.5em - 1px);
+      padding-left: 1em;
+      padding-right: 1em;
+      padding-top: calc(.5em - 1px);
+      text-align: center;
+      white-space: nowrap;
+      transition: all 0.3s ease-in-out;
+      margin: 3px 0px 3px;
+}
+
+.is-badge:hover {
+     transform: translateY(-3px);
+     cursor: pointer;
+}
+
+.download-replay {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  margin: 0px -8px 0px -12px;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+}
 /* 🐾 End of cozy profile styling 🐾 */

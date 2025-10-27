@@ -56,6 +56,17 @@ a:hover {
   transition: all 0.3s ease;
 }
 
+.player-avatar {
+  display: inline-block;
+  background-size: 101%;
+  margin-right: 10px;
+  width: 30px;
+  height: 27px;
+  margin-bottom: -10px;
+  transition: 0.2s filter ease-out, 0.2s box-shadow ease-out;
+  border-radius: 6px;
+}
+
 .leaderboard-main-bg {
   border-radius: 0 0 24px 24px !important;
   padding: 24px;

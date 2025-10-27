@@ -1,0 +1,41 @@
+[tool.isort]
+add_imports = ["from __future__ import annotations"]
+force_single_line = true
+profile = "black"
+
+[tool.poetry]
+name = "guweb"
+version = "2.0.0"
+description = ""
+authors = ["Akatsuki Team"]
+readme = "README.md"
+packages = [{ include = "bancho" }]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+quart = "^0.20.0"
+bcrypt = "^4.3.0"
+aiomysql = "^0.2.0"
+aiohttp = "^3.11.14"
+mysql-connector = "^2.2.9"
+orjson = "^3.10.16"
+timeago = "^1.0.16"
+markdown2 = "^2.5.3"
+pillow = "^11.1.0"
+databases = "0.8.0"
+pyyaml = "^6.0.2"
+sqlalchemy = "1.4.53"
+python-dotenv = "^1.1.0"
+pre-commit = "3.6.1"
+black = "24.1.1"
+isort = "5.13.2"
+autoflake = "2.2.1"
+types-psutil = "5.9.5.20240205"
+types-pymysql = "1.1.0.1"
+types-requests = "2.31.0.20240125"
+types-pyyaml = "^6.0.12.12"
+sqlalchemy2-stubs = "^0.0.2a38"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

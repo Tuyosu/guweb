@@ -14,7 +14,7 @@ new Vue({
                         out: [],
                         load: true,
                         more: {
-                            limit: 5,
+                            limit: 6,
                             full: true
                         }
                     },
@@ -22,7 +22,7 @@ new Vue({
                         out: [],
                         load: true,
                         more: {
-                            limit: 5,
+                            limit: 6,
                             full: true
                         }
                     },
@@ -30,7 +30,7 @@ new Vue({
                         out: [],
                         load: true,
                         more: {
-                            limit: 5,
+                            limit: 6,
                             full: true
                         }
                     }
@@ -134,8 +134,8 @@ new Vue({
             this.mods = mods;
 
             this.modegulag = this.StrtoGulagInt();
-            this.data.scores.recent.more.limit = 5
-            this.data.scores.best.more.limit = 5
+            this.data.scores.recent.more.limit = 6
+            this.data.scores.best.more.limit = 6
             this.data.maps.most.more.limit = 6
             this.LoadAllofdata();
         },
@@ -144,13 +144,13 @@ new Vue({
                 window.event.preventDefault();
 
             if (which == 'bestscore') {
-                this.data.scores.best.more.limit += 5;
+                this.data.scores.best.more.limit += 6;
                 this.LoadScores('best');
             } else if (which == 'recentscore') {
-                this.data.scores.recent.more.limit += 5;
+                this.data.scores.recent.more.limit += 6;
                 this.LoadScores('recent');
             } else if (which == 'firstscore') {
-                this.data.scores.first.more.limit += 5;
+                this.data.scores.first.more.limit += 6;
                 this.LoadScores('first');
             } else if (which == 'mostplay') {
                 this.data.maps.most.more.limit += 4;

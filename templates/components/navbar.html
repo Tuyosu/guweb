@@ -21,28 +21,32 @@
                 Leaderboards
             </a>
 
-        {% if session.authenticated %}
-            <a class="navbar-item" href="https://i.nyoemii.dev/86292b52.7z">
-                Client
+            <a class="navbar-item" href="/topplays">
+                Top Plays
             </a>
-        {% endif %}
-            <!--<div class="navbar-item has-dropdown is-hoverable">
+            
+            <div class="navbar-item has-dropdown is-hoverable">
                 <a class="navbar-link">
                     Information
                 </a>
                 <div class="navbar-dropdown">
-                    <a class="navbar-item" href="/doc/rules">
+                    <a class="navbar-item" href="/docs/rules">
                         Rules
                     </a>
                     <a class="navbar-item" href="/discord">
                         Discord
                     </a>
+                    {% if session.authenticated %}
+                    <a class="navbar-item" href="https://i.nyoemii.dev/86292b52.7z">
+                        Client
+                    </a>
+                    {% endif %}
                     <hr class="navbar-divider">
-                    <a class="navbar-item" href="https://github.com/varkaria/guweb/issues/new">
+                    <a class="navbar-item" href="https://github.com/tuyosu/guweb/issues/new">
                         Report an issue
                     </a>
                 </div>
-            </div>-->
+            </div>
 
             {% if session.authenticated and session.user_data['is_staff'] %}
             <a class="navbar-item" href="/admin">
