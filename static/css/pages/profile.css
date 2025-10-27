@@ -579,44 +579,54 @@ html {
   padding-left: 12px;
 }
 
+/* 🐾 UPDATED BEATMAPS SECTION - Matching First Place Scores Design! 🐾 */
 .beatmaps {
   width: 100%;
-  display: grid;
-  grid-gap: 12px;
-  grid-template-columns: repeat(auto-fill, minmax(399px, 312px));
-  background: var(--cozy-bg-medium, hsl(340, 20%, 25%));
-  padding: 8px;
-  border-radius: 16px;
-}
-
-.beatmap-block {
-  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: var(--cozy-bg-medium, hsl(340, 20%, 25%)) !important;
+  padding: 0 8px 8px 8px;
+  border-radius: 0 0 16px 16px !important;
+  border: 2px solid rgba(255, 179, 217, 0.15);
+  border-top: none !important;
+  margin-top: 0 !important;
 }
 
 .beatmap-block {
   display: flex;
-  padding: 10px;
-  font-weight: 700;
+  padding: 10px 12px;
+  font-weight: 500;
   line-height: 1.3;
   align-items: center;
   overflow: hidden;
-  height: 72px;
+  height: 64px;
   width: 100%;
+  background: #64404C !important;
+  color: #fff;
+  border-radius: 10px !important;
+  border: 2px solid #734B5A;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  gap: 12px;
 }
 
-.beatmap-block {
-  background-color: var(--cozy-bg-light, hsl(340, 22%, 32%)) !important;
-  color: #fff;
-  border-radius: 16px !important;
-  border: 2px solid rgba(255, 179, 217, 0.1);
+/* First beatmap card should connect to header - no top radius! */
+.beatmaps .beatmap-block:first-child {
+  border-radius: 0 0 10px 10px !important;
+  margin-top: 0 !important;
+}
+
+.beatmaps .beatmap-block:first-child:hover {
+  border-radius: 0 0 10px 10px !important;
 }
 
 .beatmap-block:hover {
-  background-color: var(--cozy-bg-medium, hsl(340, 20%, 25%)) !important;
-  transform: translateY(-4px) scale(1.01);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2), 0 0 20px rgba(255, 179, 217, 0.3);
+  background: #704958 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(232, 93, 154, 0.3);
   color: #fff;
-  border-color: rgba(255, 179, 217, 0.3);
+  border-color: #e85d9a;
 }
 
 .beatmap-artist,
@@ -625,43 +635,77 @@ html {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
-  font-size: 12;
+}
+
+.beatmap-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 3px;
+  line-height: 1.2;
 }
 
 .beatmap-artist {
   font-size: 11px;
+  font-weight: 400;
+  color: #9c8aa8;
+  margin-bottom: 2px;
+  line-height: 1.2;
+}
+
+.beatmap-mapper {
+  font-size: 11px;
+  font-weight: 400;
+  color: #9c8aa8;
+}
+
+.beatmap-mapper .newmaps-color {
+  color: #e85d9a;
   font-weight: 500;
 }
 
 .beatmap-footer {
   display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  margin-top: 8px;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 0;
+  margin-left: auto;
   font-size: 16px;
   font-weight: 600;
   color: #fff;
   white-space: nowrap;
+  gap: 18px;
 }
 
 .beatmap-footer .target-button {
-  background-color: var(--cozy-bg-medium, hsl(340, 20%, 25%)) !important;
-  border-radius: 12px;
-  padding: 6px 10px;
-  font-size: 12px;
-  margin-left: 10px;
-  transition: 0.2s background-color;
-  color: hsl(340, 65%, 75%);
+  background: rgba(232, 93, 154, 0.25) !important;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  transition: all 0.3s ease;
+  color: #e85d9a;
+  font-weight: 600;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+
+.beatmap-footer .target-button:hover {
+  background: rgba(232, 93, 154, 0.4) !important;
+  transform: scale(1.1);
 }
 
 .beatmap-preview {
-  width: 75px;
-  height: 58px;
-  border-radius: 12px !important;
+  width: 64px;
+  height: 45px;
+  border-radius: 8px !important;
   background-position: center;
   background-size: cover;
-  margin-right: 10px;
-  border: 2px solid rgba(255, 179, 217, 0.2);
+  flex-shrink: 0;
+  border: none;
 }
 
 .beatmap-stats {
@@ -669,27 +713,32 @@ html {
   display: flex;
   flex-direction: column;
   min-width: 0;
+  justify-content: center;
+  gap: 2px;
 }
 
 .beatmap-link {
-  width: 400px;
   overflow: hidden;
 }
 
 span.beatmap-mapper {
-  padding-right: 8px;
+  padding-right: 0;
+  display: block;
 }
 
 .d-flex.align-items-baseline {
   display: flex;
+  align-items: center;
+  gap: 0;
 }
 
 .extra-block {
   width: 100%;
   display: flex;
   justify-content: center;
-  background: var(--cozy-bg-medium, hsl(340, 20%, 25%));
-  border-radius: 0 0 16px 16px;
+  background: transparent;
+  padding-top: 0;
+  margin-top: 0 !important;
 }
 
 .show-button {
@@ -742,7 +791,7 @@ span.beatmap-mapper {
     border-radius: 20px 20px 0 0 !important;
   }
   .beatmaps {
-    grid-template-columns: inherit;
+    /* Keep single column on medium screens too! */
   }
   .beatmap-block {
     width: 100%;
