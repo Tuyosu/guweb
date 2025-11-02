@@ -587,8 +587,15 @@ async def register_post():
     if username in common.settings.DISALLOWED_USERNAMES:
         return await flash('error', 'Disallowed username; pick another.', 'register')
 
-    if await state.clients.database.fetch_one('SELECT 1 FROM users WHERE name = %s', username):
-        return await flash('error', 'Username already taken by another user.', 'register')
+    if await state.clients.database.fetch_one(
+        "SELECT 1 FROM users WHERE name = :name",
+        {"name": username},
+    ):
+        return await flash(
+            "error",
+            "Username already taken by another user.",
+            "register",
+        )
 
     # Emails must:
     # - match the regex `^[^@\s]{1,200}@[^@\s\.]{1,30}\.[^@\.\s]{1,24}$`
@@ -596,8 +603,11 @@ async def register_post():
     if not regexes.email.match(email):
         return await flash('error', 'Invalid email syntax.', 'register')
 
-    if await state.clients.database.fetch_one('SELECT 1 FROM users WHERE email = %s', email):
-        return await flash('error', 'Email already taken by another user.', 'register')
+    if await state.clients.database.fetch_one(
+        "SELECT 1 FROM users WHERE email = :email",
+        {"email": email},
+    ):
+        return await flash("error", "Email already taken by another user.", "register")
 
     # Passwords must:
     # - be within 8-32 characters in length
@@ -616,7 +626,7 @@ async def register_post():
     # (start of lock)
     pw_md5 = hashlib.md5(passwd_txt.encode()).hexdigest().encode()
     pw_bcrypt = bcrypt.hashpw(pw_md5, bcrypt.gensalt())
-    state.cache['bcrypt'][pw_bcrypt] = pw_md5 # cache pw
+    state.cache.bcrypt[pw_bcrypt] = pw_md5 # cache pw
 
     safe_name = utils.get_safe_name(username)
 
@@ -629,22 +639,26 @@ async def register_post():
     else:
         country = 'xx'
 
-    async with state.clients.database.pool.acquire() as conn:
-        async with conn.cursor() as db_cursor:
-            # add to `users` table.
-            await db_cursor.execute(
-                'INSERT INTO users '
-                '(name, safe_name, email, pw_bcrypt, country, creation_time, latest_activity) '
-                'VALUES (%s, %s, %s, %s, %s, UNIX_TIMESTAMP(), UNIX_TIMESTAMP())',
-                [username, safe_name, email, pw_bcrypt, country]
-            )
-            user_id = db_cursor.lastrowid
+    async with state.clients.database.transaction():
+        # add to `users` table.
+        user_id = await state.clients.database.execute(
+            "INSERT INTO users "
+            "(name, safe_name, email, pw_bcrypt, country, creation_time, latest_activity) "
+            "VALUES (:username, :safe_name, :email, :pw_bcrypt, :country, UNIX_TIMESTAMP(), UNIX_TIMESTAMP())",
+            {
+                "username": username,
+                "safe_name": safe_name,
+                "email": email,
+                "pw_bcrypt": pw_bcrypt,
+                "country": country,
+            },
+        )
 
-            # add to `stats` table.
-            await db_cursor.executemany(
-                'INSERT INTO stats '
-                '(id, mode) VALUES (%s, %s)',
-                [(user_id, mode) for mode in (
+        await state.clients.database.execute_many(
+            "INSERT INTO stats (id, mode) VALUES (:id, :mode)",
+            [
+                {"id": user_id, "mode": mode}
+                for mode in (
                     0,  # vn!std
                     1,  # vn!taiko
                     2,  # vn!catch
@@ -653,8 +667,10 @@ async def register_post():
                     5,  # rx!taiko
                     6,  # rx!catch
                     8,  # ap!std
-                )]
-            )
+                )
+            ],
+        )
+        
 
     # (end of lock)
 
@@ -758,6 +774,7 @@ async def instagram_redirect():
 # profile customisation
 BANNERS_PATH = Path.cwd() / '.data/banners'
 BACKGROUND_PATH = Path.cwd() / '.data/backgrounds'
+
 @frontend.route('/banners/<user_id>')
 async def get_profile_banner(user_id: int):
     # Check if avatar exists
