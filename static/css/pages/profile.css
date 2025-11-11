@@ -954,3 +954,13 @@ span.beatmap-mapper {
   cursor: pointer;
 }
 /* 🐾 End of cozy profile styling 🐾 */
+/* Playcount Chart Styles */
+.chart-canvas-wrapper {
+    position: relative;
+    height: 250px;
+    width: 100%;
+}
+
+#playcountChart {
+    max-height: 250px;
+}

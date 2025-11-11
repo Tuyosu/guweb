@@ -30,7 +30,7 @@
                             </time>
                         </div>
                         <div class="play-stats">
-                            <% addCommas(map.score) %> - <% map.max_combo %>x/<% map.beatmap.max_combo %>x - <span v-if="map.mods != 0">+ <% modsStr(map.mods) %></span>
+                            <% addCommas(map.score) %> - <% map.max_combo %>x/<% map.beatmap.max_combo %>x - <span v-if="map.mods != 0" v-html="getModIcons(map.mods)"></span><span v-else style="color: #999; font-style: italic;">No mods</span>
                         </div>
                         <div class="map-date">
                             <time>
@@ -152,7 +152,9 @@
 <script src="/static/js/asserts/vue.js"></script>
 <script src="/static/js/asserts/vue-axios.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/4.0.2/timeago.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
 <link rel="stylesheet" href="/static/css/pages/profile.css">
+<link rel="stylesheet" href="/static/css/mod-icons.css">
 
 <script>
     var userid = Number("{{ user['id'] }}"); //For text editor doesn't dizzy lmao
@@ -333,6 +335,20 @@
                 </div>
             </div>
             <div class="column">
+                <!-- Playcount Chart -->
+                <div class="log-block">
+                    <div class="header">
+                        <div class="title">
+                            <i class="fas fa-chart-line"></i> Daily Playcount (Last 30 Days)
+                        </div>
+                    </div>
+                    <div class="stats-block" style="padding: 20px;">
+                        <div class="chart-canvas-wrapper">
+                            <canvas id="playcountChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                
                 {{ scores('Best Scores', 'best')}}
                 {{ scores('Recent Scores', 'recent')}}
                 {{ scores('First Place Scores', 'first')}}

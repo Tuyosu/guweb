@@ -65,7 +65,25 @@ async def settings_profile_post():
 
     new_name = form.get('username', type=str)
     new_email = form.get('email', type=str)
+    new_userpage_content = form.get('userpage_content', type=str)  # ← ADD THIS LINE
 
+    # Update About Me / Userpage Content
+    if new_userpage_content is not None:
+        # Optional: Limit length to 2000 characters
+        if len(new_userpage_content) > 2000:
+            return await flash('error', 'About me section is too long (max 2000 characters).', 'settings/profile')
+        
+        # Save to database
+        await state.clients.database.execute(
+            "UPDATE users SET userpage_content = :content WHERE id = :user_id",
+            {"content": new_userpage_content, "user_id": session['user_data']['id']}
+        )
+        
+        # Update session (optional but recommended)
+        session['user_data']['userpage_content'] = new_userpage_content
+
+    return await flash('success', 'Your profile has been updated!', 'settings/profile')
+    
     if new_name is None or new_email is None:
         return await flash('error', 'Invalid parameters.', 'home')
 
@@ -347,7 +365,7 @@ async def profile_select(id):
     mode = request.args.get('mode', 'std', type=str) # 1. key 2. default value
     mods = request.args.get('mods', 'vn', type=str)
     user_data = await state.clients.database.fetch_one(
-        "SELECT name, safe_name, id, priv, country "
+        "SELECT name, safe_name, id, priv, country, userpage_content "
         "FROM users "
         "WHERE safe_name = :safe_name OR id = :id LIMIT 1",
         {"safe_name": utils.get_safe_name(id), "id": id},

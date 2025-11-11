@@ -45,6 +45,19 @@
             </div>
           </div>
         </div>
+        <div class="field">
+    <label class="label">About Me</label>
+    <div class="control">
+        <textarea 
+            class="textarea" 
+            name="userpage_content" 
+            placeholder="Tell others about yourself..."
+            maxlength="2000"
+            rows="6"
+        >{{ session.get('user_data', {}).get('userpage_content', '') }}</textarea>
+    </div>
+    <p class="help">Max 2000 characters. Supports line breaks and URLs.</p>
+</div>
         <!-- Disabled - Username AKA doesn't exist in gulag? (for now?)
         <div class="single-block-content">
           <div class="block-content--left">

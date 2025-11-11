@@ -1,0 +1,165 @@
+/* Mod Icons Styles */
+.mod-icons {
+    display: inline-flex;
+    gap: 4px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.mod-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    cursor: help;
+    position: relative;
+}
+
+.mod-badge:hover {
+    transform: scale(1.1);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Individual Mod Colors with Gradients */
+.mod-nf {
+    background: linear-gradient(135deg, #4290FB 0%, #2c5ff5 100%);
+    color: white;
+}
+
+.mod-ez {
+    background: linear-gradient(135deg, #88dd55 0%, #5fb82e 100%);
+    color: white;
+}
+
+.mod-td {
+    background: linear-gradient(135deg, #8866ee 0%, #6644cc 100%);
+    color: white;
+}
+
+.mod-hd {
+    background: linear-gradient(135deg, #ffaa00 0%, #ff8800 100%);
+    color: white;
+}
+
+.mod-hr {
+    background: linear-gradient(135deg, #ff6666 0%, #ff3333 100%);
+    color: white;
+}
+
+.mod-sd {
+    background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%);
+    color: white;
+}
+
+.mod-dt {
+    background: linear-gradient(135deg, #66ccff 0%, #3399ff 100%);
+    color: white;
+}
+
+.mod-rx {
+    background: linear-gradient(135deg, #88dd55 0%, #66bb33 100%);
+    color: white;
+}
+
+.mod-ht {
+    background: linear-gradient(135deg, #ffaa00 0%, #ff9900 100%);
+    color: white;
+}
+
+.mod-nc {
+    background: linear-gradient(135deg, #ff66ff 0%, #ff33ff 100%);
+    color: white;
+}
+
+.mod-fl {
+    background: linear-gradient(135deg, #333333 0%, #111111 100%);
+    color: white;
+}
+
+.mod-at {
+    background: linear-gradient(135deg, #66ffaa 0%, #33ff88 100%);
+    color: white;
+}
+
+.mod-so {
+    background: linear-gradient(135deg, #9966ff 0%, #7744ff 100%);
+    color: white;
+}
+
+.mod-ap {
+    background: linear-gradient(135deg, #66ff99 0%, #33ff77 100%);
+    color: white;
+}
+
+.mod-pf {
+    background: linear-gradient(135deg, #ffcc00 0%, #ffaa00 100%);
+    color: white;
+}
+
+/* Key mods */
+.mod-key {
+    background: linear-gradient(135deg, #dd66ff 0%, #bb44ff 100%);
+    color: white;
+}
+
+.mod-fi {
+    background: linear-gradient(135deg, #6699ff 0%, #4477ff 100%);
+    color: white;
+}
+
+.mod-rd {
+    background: linear-gradient(135deg, #ff9966 0%, #ff7744 100%);
+    color: white;
+}
+
+.mod-cn {
+    background: linear-gradient(135deg, #66ddff 0%, #44bbff 100%);
+    color: white;
+}
+
+.mod-tp {
+    background: linear-gradient(135deg, #ff6699 0%, #ff4477 100%);
+    color: white;
+}
+
+.mod-v2 {
+    background: linear-gradient(135deg, #aa66ff 0%, #8844ff 100%);
+    color: white;
+}
+
+/* Tooltip styling */
+.mod-badge::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 10px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+    margin-bottom: 5px;
+    z-index: 1000;
+}
+
+.mod-badge:hover::after {
+    opacity: 1;
+}
+
+/* No mods indicator */
+.mod-none {
+    color: #999;
+    font-size: 11px;
+    font-style: italic;
+}
